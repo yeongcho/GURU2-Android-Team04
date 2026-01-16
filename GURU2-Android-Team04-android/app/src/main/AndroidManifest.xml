@@ -15,7 +15,8 @@
         android:label="GURU2AndroidTeam04android"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GURU2AndroidTeam04android">
+        android:theme="@style/Theme.GURU2AndroidTeam04android"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".MainActivity"
