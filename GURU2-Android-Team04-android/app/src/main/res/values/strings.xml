@@ -11,13 +11,6 @@
     <string name="onboarding_title">당신의 마음을 기록하세요</string>
     <string name="hint_password_confirm">비밀번호 확인</string>
 
-    <string name="btn_login">로그인</string>
-    <string name="btn_signup">회원가입</string>
-    <string name="btn_guest_start">게스트 시작</string>
-    <string name="hint_nickname">닉네임</string>
-    <string name="hint_username">아이디</string>
-    <string name="hint_password">비밀번호</string>
-
     <string name="cd_prev_month">이전 달</string>
     <string name="cd_next_month">다음 달</string>
 </resources>
