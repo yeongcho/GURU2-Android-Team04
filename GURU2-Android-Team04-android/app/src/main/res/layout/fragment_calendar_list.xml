@@ -4,77 +4,151 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B8D4C8">
+    android:background="#BFD8C1">
 
-    <LinearLayout
-        android:id="@+id/layout_week_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/btn_prev_week"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="이전 주"
-            android:src="@android:drawable/ic_media_previous" />
-
-        <TextView
-            android:id="@+id/tv_week"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="첫째 주"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:background="@drawable/bg_week_selector"
-            android:padding="8dp" />
-
-        <ImageButton
-            android:id="@+id/btn_next_week"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="다음 주"
-            android:src="@android:drawable/ic_media_next" />
-
-        <ImageButton
-            android:id="@+id/btn_share"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="공유"
-            android:src="@android:drawable/ic_menu_share"
-            android:layout_marginStart="8dp" />
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_diary_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/layout_week_filter"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <ImageView
+        android:id="@+id/btnPrevMonth"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_empty_state"
+        android:id="@+id/tvMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이번 주에 작성된 일기가 없습니다."
-        android:textSize="16sp"
-        android:textColor="#666666"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/rv_diary_list"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="01월 2026"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnPrevMonth"
+        app:layout_constraintEnd_toStartOf="@id/btnNextMonth"
+        app:layout_constraintStart_toEndOf="@id/btnPrevMonth"
+        app:layout_constraintTop_toTopOf="@id/btnPrevMonth" />
+
+    <ImageView
+        android:id="@+id/btnNextMonth"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnPrevMonth" />
+
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btnPrevMonth">
+
+        <TextView
+            android:id="@+id/btnTabSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="요약"
+            android:textColor="#6F8F74"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnTabCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="캘린더"
+            android:textColor="#6F8F74"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnTabList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="리스트"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivMonthSticker"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/month_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+    <LinearLayout
+        android:id="@+id/layoutWeekSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_week_selector"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivMonthSticker">
+
+        <ImageView
+            android:id="@+id/btnPrevWeek"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_arrow_left" />
+
+        <TextView
+            android:id="@+id/tvWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="넷째 주"
+            android:textColor="#2E4E3F"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnNextWeek"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_arrow_right" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnShare"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="44dp"
+
+        android:padding="8dp"
+        android:src="@drawable/ic_share"
+        app:layout_constraintBottom_toBottomOf="@id/layoutWeekSelector"
+        app:layout_constraintStart_toEndOf="@id/layoutWeekSelector"
+        app:layout_constraintTop_toTopOf="@id/layoutWeekSelector"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDiaryList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutWeekSelector" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

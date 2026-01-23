@@ -81,6 +81,8 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.mpandroidchart)
     implementation(libs.androidx.cardview)
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
     // Test
     testImplementation(libs.junit)

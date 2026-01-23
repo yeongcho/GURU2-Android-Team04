@@ -1,97 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B8D4C8">
+    android:background="#BFD8C1"
+    android:fillViewport="true"
+    tools:context=".ui.calendar.CalendarFragment">
 
-    <!-- 상단 헤더 -->
-    <LinearLayout
-        android:id="@+id/layout_header"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="80dp">
 
-        <!-- 월 선택 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- 월 이동 헤더 -->
+        <ImageView
+            android:id="@+id/btnPrevMonth"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMonth"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="16dp"
+            android:text="01월 2026"
+            android:textColor="#000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/btnPrevMonth"
+            app:layout_constraintEnd_toStartOf="@id/btnNextMonth"
+            app:layout_constraintStart_toEndOf="@id/btnPrevMonth"
+            app:layout_constraintTop_toTopOf="@id/btnPrevMonth" />
 
-            <ImageButton
-                android:id="@+id/btn_prev_month"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="이전 달"
-                android:src="@android:drawable/ic_menu_revert" />
+        <ImageView
+            android:id="@+id/btnNextMonth"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnPrevMonth" />
+
+        <!-- 탭 -->
+        <LinearLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnPrevMonth">
 
             <TextView
-                android:id="@+id/tv_month"
-                android:layout_width="0dp"
+                android:id="@+id/btnTabSummary"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="01월 2026"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:layout_marginEnd="16dp"
+                android:text="요약"
+                android:textColor="#6F8F74"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/btnTabCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="캘린더"
+                android:textColor="#000"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/btn_next_month"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="다음 달"
-                android:src="@android:drawable/ic_menu_revert"
-                android:rotation="180" />
-
+            <TextView
+                android:id="@+id/btnTabList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="리스트"
+                android:textColor="#6F8F74"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- 마스코트 -->
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:contentDescription="마스코트"
-            android:src="@android:drawable/ic_dialog_info" />
+        <!-- 캘린더 카드 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calendarCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_calendar_panel"
+            android:padding="16dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ivMonthSticker"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/month_1"
+                android:layout_marginTop="-40dp"
+                android:layout_marginStart="-20dp"
+                android:elevation="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 탭 레이아웃 -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:tabTextColor="@color/gray_600"
-        app:tabSelectedTextColor="@color/black"
-        app:tabIndicatorColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/layout_header">
+            <ImageView
+                android:id="@+id/btnShare"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_circle_gray"
+                android:padding="15dp"
+                android:src="@drawable/ic_share"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="-10dp"
+                android:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabItem
+            <!-- 요일 -->
+            <LinearLayout
+                android:id="@+id/weekHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivMonthSticker">
+
+                <TextView style="@style/WeekText" android:text="일" />
+                <TextView style="@style/WeekText" android:text="월" />
+                <TextView style="@style/WeekText" android:text="화" />
+                <TextView style="@style/WeekText" android:text="수" />
+                <TextView style="@style/WeekText" android:text="목" />
+                <TextView style="@style/WeekText" android:text="금" />
+                <TextView style="@style/WeekText" android:text="토" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivCalendarGrid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/calendar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weekHeader" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 월간 마음 그래프 -->
+        <TextView
+            android:id="@+id/tvGraphTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="캘린더" />
+            android:text="월간 마음 그래프"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#4F6F55"
+            app:layout_constraintTop_toBottomOf="@id/calendarCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"/>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/graphCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="리스트" />
+            android:background="@drawable/bg_white_round_30"
+            app:layout_constraintTop_toBottomOf="@id/tvGraphTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="20dp"
+            android:paddingBottom="24dp">
 
-    </com.google.android.material.tabs.TabLayout>
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="16dp"/>
 
-    <!-- ViewPager2 -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

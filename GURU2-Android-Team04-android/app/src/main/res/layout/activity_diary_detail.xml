@@ -1,125 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B8D4C8"
-    android:fillViewport="true">
+    android:background="#BFD8C1">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        android:fillViewport="true">
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_detail_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="18일 일요일"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="15dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_date">
+            android:padding="20dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/diary_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:background="@drawable/bg_white_round_20"
+                android:padding="16dp"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <ImageView
+                    android:id="@+id/iv_month_sticker"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/month_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8일 목요일"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintStart_toEndOf="@id/iv_month_sticker"
+                    app:layout_constraintTop_toTopOf="@id/iv_month_sticker"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_month_sticker"
+                    android:layout_marginStart="8dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_share"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_gray"
+                    android:src="@drawable/ic_share"
+                    android:scaleType="centerInside"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#D0D9D4FF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_month_sticker" />
+
+                <ImageView
+                    android:id="@+id/iv_emotion"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/emotion_calm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <TextView
+                    android:id="@+id/tv_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="태그: 평온"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintStart_toEndOf="@id/iv_emotion"
+                    app:layout_constraintTop_toTopOf="@id/iv_emotion"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_emotion"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="6dp"
+                    android:text="오랜만에 고등학교 때 친구들을 만났다. 거창한 맛집을 찾아다니거나 핫플레이스를 간 것도 아니다. 그냥 동네 단골 카페 구석 자리에 앉아 각자 시킨 커피를 마시며 3시간 동안 수다만 떨었다.\n\n특별한 이야기도 아니었다. 요즘 회사가 얼마나 바쁜지, 지난 주말에 본 드라마가 얼마나 재밌었는지 같은 시시콜콜한 이야기들. 그런데 그 별거 아닌 대화 속에 섞인 웃음소리가 참 좋았다. 내가 어떤 말을 해도 오해 없이 들어줄 거라는 믿음이 있어서인지, 굳이 멋진 사람처럼 보이려 애쓰지 않아도 돼서 마음이 정말 편안했다.\n\n해가 질 무렵 헤어져서 집에 돌아오는데, 텅 비어있던 마음 한구석이 따뜻하게 채워진 기분이 들었다. 역시 나를 웃게 만드는 건 대단한 성취가 아니라, 내 편이 되어주는 사람들과 보내는 이런 소소한 시간들이다. 덕분에 이번 주는 아주 잘 보낼 수 있을 것 같다."
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_emotion" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_star"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_star_white"
+                app:layout_constraintTop_toBottomOf="@id/diary_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mind_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="#212F3D"
+                app:layout_constraintTop_toBottomOf="@id/iv_star"
+                android:layout_marginTop="24dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/iv_detail_emotion"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/emotion_joy" />
-
+                    android:orientation="vertical"
+                    android:padding="20dp">
                     <TextView
-                        android:id="@+id/tv_detail_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="태그: 기쁨"
+                        android:text="오늘의 마음 카드 🌙"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="닉네임님, 오늘은 여기서 멈춰도 괜찮아요."
+                        android:textColor="#DDDDDD"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"/>
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/tv_detail_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:lineSpacingExtra="4dp"
-                    android:text="오늘의 일기 내용이 들어갑니다..."
-                    android:textColor="#333333" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_ai_analysis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="#212F3D"
-            app:cardCornerRadius="15dp"
-            app:layout_constraintTop_toBottomOf="@id/card_content">
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_bottom_nav"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:contentDescription="Home"
+            android:src="@drawable/ic_nav_home" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="- 마음지기의 분석 -"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:contentDescription="Diary"
+            android:src="@drawable/ic_nav_diary" />
 
-                <TextView
-                    android:id="@+id/tv_ai_analysis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textColor="#DDDDDD"
-                    android:text="AI가 분석한 감정 메시지입니다." />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:contentDescription="Calendar"
+            android:src="@drawable/ic_nav_calendar" />
 
-                <TextView
-                    android:id="@+id/tv_hashtags"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textColor="#AED6F1"
-                    android:text="#시험기간 #오늘도수고했어" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:contentDescription="Profile"
+            android:src="@drawable/ic_nav_mypage" />
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

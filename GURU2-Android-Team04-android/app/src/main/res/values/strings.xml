@@ -13,4 +13,9 @@
 
     <string name="cd_prev_month">이전 달</string>
     <string name="cd_next_month">다음 달</string>
+
+    <!-- 로그인 관련 추가 -->
+    <string name="hint_username">아이디</string>
+    <string name="hint_password">비밀번호</string>
+    <string name="btn_login">로그인</string>
 </resources>

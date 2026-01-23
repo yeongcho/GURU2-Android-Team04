@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.guru2_android_team04_android.ui.calendar.CalendarFragment  // 추가!
 
 // MainActivity : 앱 실행 시 처음 뜨는 기본 화면(Activity)
 
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
                 // ★ 3. 캘린더 (navigation_calendar)
                 R.id.navigation_calendar -> {
-                    // replaceFragment(CalendarFragment()) // 캘린더 만들면 주석 푸세요
+                    replaceFragment(CalendarFragment())
                     true
                 }
 

@@ -55,20 +55,14 @@ class MyPageFragment : Fragment() {
 
         // (4) 프로필 편집 버튼
         binding.btnEditProfile.setOnClickListener {
-            Toast.makeText(context, "프로필 편집", Toast.LENGTH_SHORT).show()
-
-            // MyPageFragment.kt 안에 onViewCreated 함수 안쪽
-
-            binding.btnEditProfile.setOnClickListener {
-                if (isLoggedIn) {
-                    // 로그인 상태면 -> 편집 화면으로 이동!
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, EditProfileFragment()) // fragment_container ID 확인 필요
-                        .addToBackStack(null) // 뒤로가기 가능하게 설정
-                        .commit()
-                } else {
-                    Toast.makeText(context, "로그인이 필요한 서비스입니다.", Toast.LENGTH_SHORT).show()
-                }
+            if (isLoggedIn) {
+                // 로그인 상태면 -> 편집 화면으로 이동!
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, EditProfileFragment()) // fragment_container ID 확인 필요
+                    .addToBackStack(null) // 뒤로가기 가능하게 설정
+                    .commit()
+            } else {
+                Toast.makeText(context, "로그인이 필요한 서비스입니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -77,8 +71,8 @@ class MyPageFragment : Fragment() {
     private fun showLoginDialog() {
         // 1. 아까 만든 dialog_login.xml 모양을 가져옴
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_login, null)
-        val etId = dialogView.findViewById<EditText>(R.id.et_login_id)
-        val etPw = dialogView.findViewById<EditText>(R.id.et_login_pw)
+        val etId = dialogView.findViewById<EditText>(R.id.et_username)
+        val etPw = dialogView.findViewById<EditText>(R.id.et_password)
 
         // 2. 팝업창 만들기
         val builder = AlertDialog.Builder(context)
@@ -107,7 +101,7 @@ class MyPageFragment : Fragment() {
         builder.show()
     }
 
-    // 화면 상태 변경 함수 (아까와 동일)
+    // 화면 상태 변경 함수
     private fun updateUI(isLogin: Boolean) {
         if (isLogin) {
             // [로그인 상태] -> 정보 보여주기
