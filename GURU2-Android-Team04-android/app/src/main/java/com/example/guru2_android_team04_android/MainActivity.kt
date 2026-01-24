@@ -40,16 +40,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // ★ 3. 캘린더 (navigation_calendar)
-                R.id.navigation_calendar -> {
-                    // replaceFragment(CalendarFragment()) // 캘린더 만들면 주석 푸세요
-                    true
-                }
-
-                // ★ 4. 마이페이지 (navigation_mypage)
-                R.id.navigation_mypage -> {
-                    replaceFragment(MyPageFragment())
-                    true
-                }
                 else -> false
             }
         }

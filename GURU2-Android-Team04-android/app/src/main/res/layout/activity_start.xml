@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_start2">
 
+    <!--일기 시작(메인 화면 진입) 화면-->
     <!-- 서브 텍스트 -->
     <!--오늘 요일로 바꾸는 기능 필요-->
     <TextView
