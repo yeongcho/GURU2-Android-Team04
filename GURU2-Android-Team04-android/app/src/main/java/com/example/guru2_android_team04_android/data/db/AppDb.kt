@@ -13,12 +13,11 @@ object AppDb {
     // DB 스키마 버전
     // - 테이블 구조(컬럼 추가/변경 등)가 바뀌면 반드시 버전을 올려야 한다.
     // - 버전이 바뀌면 기존 사용자 DB에 대해 onUpgrade가 수행된다.
-    const val DB_VERSION = 5
+    const val DB_VERSION = 6
 
     // T(Table)
     // 테이블명 상수들을 모아두는 내부 객체.
     // - SQL에서 "문자열 직접 입력"을 최소화하기 위해 사용한다.
-    // - 테이블명 변경이 필요할 때 여기만 수정하면 된다.
     object T {
 
         // 회원 정보 테이블
@@ -35,7 +34,7 @@ object AppDb {
         const val ANALYSIS = "ai_analysis"
 
         // 월간 요약 테이블
-        // - owner_id + year_month(YYYY-MM) 단위로 지난달 요약 저장
+        // - owner_id + year_month(YYYY-MM) 단위로 월간 요약 화면에 필요한 데이터를 캐시 저장
         const val MONTHLY = "monthly_summaries"
 
         // 배지 마스터 테이블

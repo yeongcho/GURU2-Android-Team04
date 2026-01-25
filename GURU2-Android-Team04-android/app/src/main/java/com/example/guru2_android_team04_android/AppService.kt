@@ -736,19 +736,33 @@ class AppService(
         if (moodStats.isEmpty()) return null
 
         val dominantMood = moodStats.maxByOrNull { it.count }!!.mood
-        val topTag = getLastMonthTopTag(ownerId)
 
-        val summaryText = buildString {
-            append("${lastYm}의 대표 감정은 ${dominantMood.name}이에요.")
-            if (topTag.isNotBlank()) append(" 가장 많이 등장한 태그는 \"$topTag\"였어요.")
+        // 월간 입력 텍스트 구성(너무 길어지지 않게 요약해서 Gemini에 전달)
+        val entries = DiaryDao(db).getByMonth(ownerId, lastYm)
+        if (entries.isEmpty()) return null
+
+        val brief = buildString {
+            // 너무 긴 입력 방지: 일기 25개까지만, 본문은 200자까지만
+            for (e in entries.take(25)) {
+                val content = e.content.replace("\n", " ").take(200)
+                append("- ${e.dateYmd} | mood=${e.mood.name} | tags=${e.tags.joinToString(",")} | $content\n")
+            }
         }
+
+        val monthlyR = geminiClient.summarizeMonth(
+            yearMonth = lastYm,
+            dominantMoodLabel = dominantMood.name,
+            entriesBrief = brief
+        )
 
         val ms = MonthlySummary(
             ownerId = ownerId,
             yearMonth = lastYm,
             dominantMood = dominantMood,
-            topTag = topTag,
-            summaryText = summaryText
+            oneLineSummary = monthlyR.oneLineSummary.ifBlank { "이번 달을 한 문장으로 정리해볼게요." },
+            detailSummary = monthlyR.detailSummary.ifBlank { "이번 달 기록을 바탕으로 한 요약을 준비 중이에요." },
+            emotionFlow = monthlyR.emotionFlow.ifBlank { "안정 → 변화 → 회복" },
+            keywords = monthlyR.keywords
         )
 
         monthlyDao.upsert(ms)

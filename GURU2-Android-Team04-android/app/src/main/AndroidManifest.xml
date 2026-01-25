@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 갤러리 읽기 권한 (이미지) -->
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES" android:required="false" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
     <application
         android:name=".MyApp"
@@ -19,20 +22,27 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WriteActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="Moonlog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".SplashActivity" android:exported="false" />
+        <activity android:name=".OnboardingActivity" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".SignupActivity" android:exported="false" />
+        <activity android:name=".StartActivity" android:exported="false" />
+        <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".DiaryEditorActivity" />
+        <activity android:name=".TodayDiaryDetailActivity" />
+        <activity android:name=".AnalysisStartActivity" />
+        <activity android:name=".AnalysisDiaryActivity" />
+        <activity android:name=".AnalysisComfortActivity" />
+        <activity android:name=".AnalysisActionsActivity" />
 
     </application>
 

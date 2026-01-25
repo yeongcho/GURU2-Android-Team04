@@ -137,11 +137,7 @@ data class AiAnalysis(
 // MonthlySummary : monthly_summaries 테이블(월간 요약) 한 건을 나타내는 모델
 // 용도:
 // - 특정 월(YYYY-MM)에 대한 감정 요약 / 대표 태그 / 요약 문장을 저장한다.
-// - 홈/리포트 화면에서 "지난달 요약"을 보여줄 때 사용된다.
-// 설계:
-// - PK(ownerId, yearMonth)로 사용자-월 단위 1개만 유지한다.
-// - dominantMood는 해당 월의 최빈 감정이다.
-// - topTag는 월간 최다 태그로, 없으면 빈 문자열로 저장한다.
+// - 월간 요약 화면(activity_monthly_summary.xml)에 필요한 내용을 저장한다.
 data class MonthlySummary(
     // 사용자 식별자 ("USER_xxx" / "ANON_xxx")
     val ownerId: String,
@@ -152,11 +148,17 @@ data class MonthlySummary(
     // 월간 대표 감정(최빈 감정)
     val dominantMood: Mood,
 
-    // 월간 최다 태그 (없으면 "")
-    val topTag: String,
+    // 한 줄 요약(강조 박스)
+    val oneLineSummary: String,
 
-    // 요약 문장 (사용자에게 보여줄 텍스트)
-    val summaryText: String,
+    // 상세 요약 본문(긴 문단)
+    val detailSummary: String,
+
+    // 감정 흐름 한 줄(예: "안정 → 지침 → 회복")
+    val emotionFlow: String,
+
+    // 주요 키워드(칩) 0~3개
+    val keywords: List<String>,
 
     // 마지막 갱신 시각(Unix ms)
     // - 월간 요약을 재생성/업데이트할 때 변경된다.

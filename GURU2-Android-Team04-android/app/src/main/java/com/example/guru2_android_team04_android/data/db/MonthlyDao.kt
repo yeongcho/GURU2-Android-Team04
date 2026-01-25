@@ -4,12 +4,14 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.example.guru2_android_team04_android.data.model.MonthlySummary
 import com.example.guru2_android_team04_android.data.model.Mood
+import com.example.guru2_android_team04_android.util.JsonMini
 
 // MonthlyDao : monthly_summaries 테이블 접근용 DAO
 // 목적:
 // - 지난달 감정 요약같은 월간 요약 데이터를 DB에 저장/조회한다.
 // - ownerId(사용자) + yearMonth(YYYY-MM)를 복합 PK로 관리하여 월별로 1개 요약만 유지한다.
 // - 앱에서 지난달 요약을 생성한 뒤 저장해두면, 매번 일기 전체를 다시 집계하지 않아도 빠르게 보여줄 수 있다.
+// - 월간 요약 화면(UI)에 필요한 one_line_summary/detail_summary/emotion_flow/keywords_json을 함께 저장/조회한다.
 class MonthlyDao(private val db: SQLiteDatabase) {
 
     // 특정 사용자(ownerId)의 특정 월(yearMonth, "YYYY-MM") 요약을 조회한다.
@@ -19,7 +21,9 @@ class MonthlyDao(private val db: SQLiteDatabase) {
     fun get(ownerId: String, yearMonth: String): MonthlySummary? {
         db.rawQuery(
             """
-            SELECT owner_id, year_month, dominant_mood, top_tag, summary_text, updated_at
+            SELECT owner_id, year_month, dominant_mood,
+                   one_line_summary, detail_summary, emotion_flow, keywords_json,
+                   updated_at
             FROM ${AppDb.T.MONTHLY}
             WHERE owner_id=? AND year_month=?
             LIMIT 1
@@ -36,9 +40,11 @@ class MonthlyDao(private val db: SQLiteDatabase) {
                 ownerId = c.getString(0),
                 yearMonth = c.getString(1),
                 dominantMood = Mood.fromDb(c.getInt(2)),
-                topTag = c.getString(3),
-                summaryText = c.getString(4),
-                updatedAt = c.getLong(5)
+                oneLineSummary = c.getString(3),
+                detailSummary = c.getString(4),
+                emotionFlow = c.getString(5),
+                keywords = JsonMini.jsonToList(c.getString(6)),
+                updatedAt = c.getLong(7)
             )
         }
     }
@@ -55,9 +61,10 @@ class MonthlyDao(private val db: SQLiteDatabase) {
             put("owner_id", summary.ownerId)
             put("year_month", summary.yearMonth)
             put("dominant_mood", summary.dominantMood.dbValue)
-            put("top_tag", summary.topTag)
-            put("summary_text", summary.summaryText)
-
+            put("one_line_summary", summary.oneLineSummary)
+            put("detail_summary", summary.detailSummary)
+            put("emotion_flow", summary.emotionFlow)
+            put("keywords_json", JsonMini.listToJson(summary.keywords.take(3)))
             // updated_at은 저장/갱신 시점마다 최신값으로 갱신한다.
             put("updated_at", System.currentTimeMillis())
         }
@@ -93,7 +100,9 @@ class MonthlyDao(private val db: SQLiteDatabase) {
 
         db.rawQuery(
             """
-            SELECT owner_id, year_month, dominant_mood, top_tag, summary_text, updated_at
+            SELECT owner_id, year_month, dominant_mood,
+                   one_line_summary, detail_summary, emotion_flow, keywords_json,
+                   updated_at
             FROM ${AppDb.T.MONTHLY}
             WHERE owner_id=? AND year_month BETWEEN ? AND ?
             ORDER BY year_month ASC
@@ -106,9 +115,11 @@ class MonthlyDao(private val db: SQLiteDatabase) {
                         ownerId = c.getString(0),
                         yearMonth = c.getString(1),
                         dominantMood = Mood.fromDb(c.getInt(2)),
-                        topTag = c.getString(3),
-                        summaryText = c.getString(4),
-                        updatedAt = c.getLong(5)
+                        oneLineSummary = c.getString(3),
+                        detailSummary = c.getString(4),
+                        emotionFlow = c.getString(5),
+                        keywords = JsonMini.jsonToList(c.getString(6)),
+                        updatedAt = c.getLong(7)
                     )
                 )
             }

@@ -74,4 +74,64 @@ object DateUtil {
         // 밀리초 → 일 단위 변환
         return diff / (24L * 60L * 60L * 1000L)
     }
+
+    // 오늘 요일을 한국어(월/화/수/목/금/토/일)로 반환한다.
+    // 사용 예:
+    // - 시작 화면의 "좋은 -요일이에요!" 문구 생성
+    fun todayWeekdayKo(): String {
+        val c = Calendar.getInstance()
+        return when (c.get(Calendar.DAY_OF_WEEK)) {
+            Calendar.SUNDAY -> "일요일"
+            Calendar.MONDAY -> "월요일"
+            Calendar.TUESDAY -> "화요일"
+            Calendar.WEDNESDAY -> "수요일"
+            Calendar.THURSDAY -> "목요일"
+            Calendar.FRIDAY -> "금요일"
+            Calendar.SATURDAY -> "토요일"
+            else -> "오늘"
+        }
+    }
+
+    // 오늘 날짜를 홈 화면 표시용 포맷("YYYY년 M월 D일 요일")으로 반환한다.
+    // 사용 예:
+    // - 홈 화면 상단 "2026년 2월 6일 금요일" 같은 텍스트 표시
+    fun todayPrettyKo(): String {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH) + 1
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val weekday = todayWeekdayKo()
+        return "${year}년 ${month}월 ${day}일 ${weekday}"
+    }
+
+    // "yyyy-MM-dd" 형태의 날짜를 "YYYY년 M월 D일 요일" 형태로 변환한다.
+    // 사용 예:
+    // - 상세 화면에서 entry.dateYmd를 예쁜 포맷으로 표시
+    fun ymdToPrettyKo(ymd: String): String {
+        return try {
+            val d = ymdFmt.parse(ymd) ?: return todayPrettyKo()
+            val c = Calendar.getInstance().apply { time = d }
+
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH) + 1
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val weekday = when (c.get(Calendar.DAY_OF_WEEK)) {
+                Calendar.SUNDAY -> "일요일"
+                Calendar.MONDAY -> "월요일"
+                Calendar.TUESDAY -> "화요일"
+                Calendar.WEDNESDAY -> "수요일"
+                Calendar.THURSDAY -> "목요일"
+                Calendar.FRIDAY -> "금요일"
+                Calendar.SATURDAY -> "토요일"
+                else -> "오늘"
+            }
+
+            "${year}년 ${month}월 ${day}일 ${weekday}"
+        } catch (_: Exception) {
+            // 예외처리) 파싱 실패 시 오늘 날짜로 대체
+            todayPrettyKo()
+        }
+    }
+
 }

@@ -94,14 +94,20 @@ class AppDbHelper(context: Context) :
         // - owner_id + year_month(YYYY-MM) 기준으로 월별 1개 요약만 존재하도록 PK 설정
         // - dominant_mood: 월간 최빈 감정
         // - top_tag: 월간 최다 태그(없으면 빈 문자열)
+        // - one_line_summary: 한 줄 요약(강조 박스)
+        // - detail_summary: 상세 요약 본문(긴 문단)
+        // - emotion_flow: 감정 흐름 한 줄 (예: "안정 → 지침 → 회복")
+        // - keywords_json: 주요 키워드(칩) 0~3개를 JSON 문자열로 저장
         db.execSQL(
             """
             CREATE TABLE ${AppDb.T.MONTHLY} (
                 owner_id TEXT NOT NULL,
                 year_month TEXT NOT NULL,
                 dominant_mood INTEGER NOT NULL,
-                top_tag TEXT NOT NULL DEFAULT '',
-                summary_text TEXT NOT NULL,
+                one_line_summary TEXT NOT NULL DEFAULT '',
+                detail_summary TEXT NOT NULL DEFAULT '',
+                emotion_flow TEXT NOT NULL DEFAULT '',
+                keywords_json TEXT NOT NULL DEFAULT '[]',
                 updated_at INTEGER NOT NULL,
                 PRIMARY KEY(owner_id, year_month)
             );
@@ -238,6 +244,50 @@ class AppDbHelper(context: Context) :
                 db.execSQL("DROP TABLE ${AppDb.T.SETTINGS};")
                 db.execSQL("ALTER TABLE settings_new RENAME TO ${AppDb.T.SETTINGS};")
             }
+        }
+
+        // v5 -> v6
+        // 월간 요약 화면(UI)에 맞게 monthly_summaries 스키마 변경
+        // - 기존: dominant_mood, top_tag, summary_text
+        // - 신규: dominant_mood, one_line_summary, detail_summary, emotion_flow, keywords_json
+        if (oldVersion < 6) {
+            db.execSQL(
+                """
+                CREATE TABLE monthly_summaries_new (
+                    owner_id TEXT NOT NULL,
+                    year_month TEXT NOT NULL,
+                    dominant_mood INTEGER NOT NULL,
+                    one_line_summary TEXT NOT NULL DEFAULT '',
+                    detail_summary TEXT NOT NULL DEFAULT '',
+                    emotion_flow TEXT NOT NULL DEFAULT '',
+                    keywords_json TEXT NOT NULL DEFAULT '[]',
+                    updated_at INTEGER NOT NULL,
+                    PRIMARY KEY(owner_id, year_month)
+                );
+                """.trimIndent()
+            )
+
+            // 기존 데이터 이관:
+            // - summary_text → detail_summary로 이전
+            // - one_line_summary / emotion_flow / keywords_json은 기본값으로 초기화
+            db.execSQL(
+                """
+                INSERT INTO monthly_summaries_new(
+                    owner_id, year_month, dominant_mood, one_line_summary, detail_summary, emotion_flow, keywords_json, updated_at
+                )
+                SELECT
+                    owner_id, year_month, dominant_mood,
+                    '' AS one_line_summary,
+                    summary_text AS detail_summary,
+                    '' AS emotion_flow,
+                    '[]' AS keywords_json,
+                    updated_at
+                FROM ${AppDb.T.MONTHLY};
+                """.trimIndent()
+            )
+
+            db.execSQL("DROP TABLE ${AppDb.T.MONTHLY};")
+            db.execSQL("ALTER TABLE monthly_summaries_new RENAME TO ${AppDb.T.MONTHLY};")
         }
     }
 

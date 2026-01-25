@@ -23,6 +23,14 @@ data class GeminiResult(
     val fullText: String
 )
 
+// MonthlyGeminiResult : 월간 요약 화면(activity_monthly_summary.xml)에 필요한 결과 DTO
+data class MonthlyGeminiResult(
+    val oneLineSummary: String,
+    val detailSummary: String,
+    val emotionFlow: String,
+    val keywords: List<String> // 0~3
+)
+
 // GeminiClient : Gemini API 호출을 담당하는 네트워크 클라이언트(LLM 연동 계층)
 // 용도:
 // - 일기 텍스트를 Gemini에 전송하고, JSON 형태의 분석 결과를 받아 앱 모델로 변환한다.
@@ -221,6 +229,100 @@ class GeminiClient(
             hashtags = hashtags.take(5),
             missionSummary = safeMissionSummary,
             fullText = obj.getString("full_text")
+        )
+    }
+
+    // 월간 요약 생성 요청
+    // 입력:
+    // - yearMonth: "YYYY-MM"
+    // - dominantMoodLabel: 최빈 감정 라벨(문자열)
+    // - entriesBrief: 월 일기 요약 입력(길이 제한된 텍스트)
+    fun summarizeMonth(
+        yearMonth: String,
+        dominantMoodLabel: String,
+        entriesBrief: String
+    ): MonthlyGeminiResult {
+        val prompt = buildMonthlyPrompt(yearMonth, dominantMoodLabel, entriesBrief)
+
+        val bodyJson = JSONObject().apply {
+            put(
+                "contents",
+                JSONArray().put(
+                    JSONObject().put(
+                        "parts",
+                        JSONArray().put(JSONObject().put("text", prompt))
+                    )
+                )
+            )
+        }
+
+        val req = okhttp3.Request.Builder()
+            .url(endpointUrl)
+            .addHeader("x-goog-api-key", apiKey)
+            .addHeader("Content-Type", "application/json")
+            .post(bodyJson.toString().toRequestBody("application/json; charset=utf-8".toMediaType()))
+            .build()
+
+        http.newCall(req).execute().use { resp ->
+            if (!resp.isSuccessful) throw RuntimeException("LLM API failed: ${resp.code}")
+            val raw = resp.body?.string().orEmpty()
+            val text = extractTextFromGeminiResponse(raw)
+            return parseMonthlyStrictJson(text)
+        }
+    }
+
+    private fun buildMonthlyPrompt(yearMonth: String, dominantMoodLabel: String, entriesBrief: String): String {
+        return """
+        너는 감정 일기 코치야.
+        아래 한 달치 일기 요약 입력을 바탕으로 반드시 "JSON만" 출력해. 다른 문장은 절대 금지.
+
+        [입력]
+        - 대상 월: $yearMonth
+        - 이번 달 최빈 감정: $dominantMoodLabel
+        - 월간 일기 요약 입력(날짜/기분/태그/내용 요약):
+        $entriesBrief
+
+        [출력 JSON 스키마]
+        {
+          "one_line_summary": "한 줄 요약(강조 박스) 1문장",
+          "detail_summary": "상세 요약 본문(3~7문장, 줄바꿈 허용)",
+          "emotion_flow": "감정 흐름 한 줄(예: 안정 → 지침 → 회복)",
+          "keywords": ["키워드1", "키워드2", "키워드3"]
+        }
+
+        [강제 규칙]
+        - one_line_summary는 40자 내외 1문장
+        - detail_summary는 3~7문장, 과한 의학/진단 금지
+        - emotion_flow는 너무 길지 않게(20자 내외) "A → B → C" 형태 추천
+        - keywords는 0~3개(가능하면 3개), 중복 금지, 너무 추상적인 단어 금지
+        - JSON 외 다른 텍스트 출력 금지
+        """.trimIndent()
+    }
+
+    private fun parseMonthlyStrictJson(text: String): MonthlyGeminiResult {
+        val cleaned = text
+            .removePrefix("```json").removePrefix("```")
+            .removeSuffix("```")
+            .trim()
+
+        val obj = JSONObject(cleaned)
+
+        val oneLine = obj.optString("one_line_summary", "").trim()
+        val detail = obj.optString("detail_summary", "").trim()
+        val flow = obj.optString("emotion_flow", "").trim()
+
+        val keywordsArr = obj.optJSONArray("keywords") ?: JSONArray()
+        val keywords = ArrayList<String>()
+        for (i in 0 until keywordsArr.length()) {
+            val s = keywordsArr.optString(i, "").trim()
+            if (s.isNotBlank()) keywords.add(s)
+        }
+
+        return MonthlyGeminiResult(
+            oneLineSummary = oneLine,
+            detailSummary = detail,
+            emotionFlow = flow,
+            keywords = keywords.distinct().take(3)
         )
     }
 }
