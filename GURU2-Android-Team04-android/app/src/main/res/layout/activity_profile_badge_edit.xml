@@ -185,6 +185,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/iv_badge_1"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_badge_start" />
@@ -235,6 +236,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/iv_badge_2"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_badge_three_days" />
@@ -283,6 +285,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/iv_badge_3"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_badge_month" />
@@ -331,6 +334,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/iv_badge_4"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_badge_traveler" />
@@ -379,6 +383,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/iv_badge_5"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_badge_emotion_log" />
@@ -427,6 +432,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/iv_badge_6"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_badge_wine" />

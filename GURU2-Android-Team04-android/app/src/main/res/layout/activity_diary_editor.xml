@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg_sage"
+    android:background="#AECAB3"
     android:padding="20dp">
 
     <!--
@@ -118,7 +118,7 @@
                             android:layout_marginStart="10dp"
                             android:fontFamily="@font/handwriting_font"
                             android:text="오늘의 감정을 선택해주세요"
-                            android:textColor="@color/gray_600"
+                            android:textColor="#000000"
                             android:textSize="16sp"
                             app:layout_constraintStart_toEndOf="@id/iv_emotion_preview"
                             app:layout_constraintTop_toTopOf="@id/iv_emotion_preview"
@@ -157,7 +157,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="기쁨"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
 
                                 <!-- 자신감 -->
@@ -172,7 +172,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="자신감"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
 
                                 <!-- 평온 -->
@@ -187,7 +187,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="평온"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
 
                                 <!-- 평범 -->
@@ -202,7 +202,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="평범"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
 
                                 <!-- 우울 -->
@@ -217,7 +217,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="우울"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
 
                                 <!-- 분노 -->
@@ -232,7 +232,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="분노"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
 
                                 <!-- 피곤함 -->
@@ -247,7 +247,7 @@
                                     android:fontFamily="@font/handwriting_font"
                                     android:gravity="center"
                                     android:text="피곤함"
-                                    android:textColor="@color/text_dark"
+                                    android:textColor="#000000"
                                     android:textSize="12sp" />
                             </RadioGroup>
                         </HorizontalScrollView>
@@ -257,7 +257,7 @@
                             android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:layout_marginTop="15dp"
-                            android:background="@color/gray_300"
+                            android:background="#CEDBD6"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/scroll_mood" />

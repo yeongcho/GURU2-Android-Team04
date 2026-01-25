@@ -58,6 +58,11 @@
         <activity android:name=".DiaryListActivity" android:exported="false" />
         <activity android:name=".ArchiveDiaryDetailActivity" android:exported="false" />
 
+        <activity android:name=".MyPageActivity" android:exported="false" />
+        <activity android:name=".ProfileBadgeEditActivity" android:exported="false" />
+        <activity android:name=".ProfileEditActivity" android:exported="false" />
+        <activity android:name=".MindCardArchiveActivity" android:exported="false" />
+
     </application>
 
 </manifest>

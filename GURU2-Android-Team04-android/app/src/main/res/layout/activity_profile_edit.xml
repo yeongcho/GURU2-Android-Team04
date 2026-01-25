@@ -94,17 +94,16 @@
                     app:layout_constraintBottom_toBottomOf="@id/iv_profile_image">
 
                     <!-- 닉네임 -->
-                    <!-- 클릭 시 EditText로 바꾸어서 닉네임 변경 가능 -->
-                    <TextView
-                        android:id="@+id/tv_nickname"
+                    <EditText
+                        android:id="@+id/et_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="닉네임"
                         android:textSize="22sp"
                         android:textColor="#000000"
                         android:fontFamily="@font/nanumsquare_eb"
-                        android:clickable="true"
-                        android:focusable="true" />
+                        android:background="@android:color/transparent"
+                        android:inputType="textPersonName" />
 
                     <!-- 이메일 -->
                     <TextView
