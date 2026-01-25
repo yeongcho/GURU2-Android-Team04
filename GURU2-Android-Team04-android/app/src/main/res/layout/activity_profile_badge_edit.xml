@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CAC1AE"
+    android:padding="20dp"
+    android:clipToPadding="false">
+
+    <!-- 배지를 프로필에 적용시킬 수 있는 화면-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <!-- 상단 책갈피 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/view_bookmark"
+            android:layout_width="35dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="top|start"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="#7C6969" />
+
+        <!-- 본문 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_profile_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_white"
+                android:padding="25dp"
+                android:elevation="2dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageView
+                    android:id="@+id/iv_profile_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_icon_profile"
+                    android:background="@drawable/bg_circle_gray"
+                    app:tint="#DEDEDE"
+                    android:padding="2dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:elevation="2dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/layout_member_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="30dp"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toEndOf="@id/iv_profile_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_profile_image"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_profile_image">
+
+                    <TextView
+                        android:id="@+id/tv_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="닉네임"
+                        android:textSize="22sp"
+                        android:textColor="#000000"
+                        android:fontFamily="@font/nanumsquare_eb"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="example@swu.ac.kr"
+                        android:textSize="14sp"
+                        android:textColor="#9A9A9A"
+                        android:fontFamily="@font/nanumsquare_r"
+                        android:layout_marginTop="2dp" />
+
+                    <TextView
+                        android:id="@+id/tv_badge_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="감정 로그 수집가"
+                        android:textSize="15sp"
+                        android:textColor="#68A684"
+                        android:fontFamily="@font/nanumsquare_r"
+                        android:layout_marginTop="12dp" />
+
+                    <TextView
+                        android:id="@+id/tv_d_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="나와 마주한 지 D+127일 째"
+                        android:textSize="15sp"
+                        android:textColor="#565656"
+                        android:fontFamily="@font/nanumsquare_r"
+                        android:layout_marginTop="3dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_badge_frame_mypage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_badge_emotion_log"
+                    android:elevation="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
+                    app:layout_constraintEnd_toEndOf="@id/iv_profile_image"
+                    app:layout_constraintStart_toStartOf="@id/iv_profile_image"
+                    app:layout_constraintTop_toTopOf="@id/iv_profile_image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_white"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginTop="20dp"
+                android:elevation="2dp">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="3"
+                    android:alignmentMode="alignMargins">
+
+                    <!-- badge 1 -->
+                    <LinearLayout
+                        android:id="@+id/layout_badge_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:src="@drawable/ic_badge_start" />
+
+                            <ImageView
+                                android:id="@+id/iv_check_1"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#5D7663"
+                                android:layout_gravity="top|end"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="시작과 꾸준함"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_eb"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="첫 번째 일기 작성"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_l" />
+                    </LinearLayout>
+
+                    <!-- badge 2 -->
+                    <LinearLayout
+                        android:id="@+id/layout_badge_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:src="@drawable/ic_badge_three_days" />
+
+                            <ImageView
+                                android:id="@+id/iv_check_2"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#5D7663"
+                                android:layout_gravity="top|end"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="작심삼일 마스터"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_eb"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3일 연속 일기 작성"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_l" />
+                    </LinearLayout>
+
+                    <!-- badge 3 -->
+                    <LinearLayout
+                        android:id="@+id/layout_badge_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:src="@drawable/ic_badge_month" />
+
+                            <ImageView
+                                android:id="@+id/iv_check_3"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#5D7663"
+                                android:layout_gravity="top|end"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="한 달의 조각들"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_eb"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="누적 일기 30개 작성"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_l" />
+                    </LinearLayout>
+
+                    <!-- badge 4 -->
+                    <LinearLayout
+                        android:id="@+id/layout_badge_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:src="@drawable/ic_badge_traveler" />
+
+                            <ImageView
+                                android:id="@+id/iv_check_4"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#5D7663"
+                                android:layout_gravity="top|end"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="돌아온 여행자"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_eb"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="오랜만에 들어 왔을 때"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_l" />
+                    </LinearLayout>
+
+                    <!-- badge 5 -->
+                    <LinearLayout
+                        android:id="@+id/layout_badge_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:src="@drawable/ic_badge_emotion_log" />
+
+                            <ImageView
+                                android:id="@+id/iv_check_5"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#5D7663"
+                                android:layout_gravity="top|end"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="감정 로그 수집가"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_eb"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="누적 일기 100개 작성"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_l" />
+                    </LinearLayout>
+
+                    <!-- badge 6 -->
+                    <LinearLayout
+                        android:id="@+id/layout_badge_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:src="@drawable/ic_badge_wine" />
+
+                            <ImageView
+                                android:id="@+id/iv_check_6"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#5D7663"
+                                android:layout_gravity="top|end"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="감정 소믈리에"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_eb"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="모든 종류의 감정 태그"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/nanumsquare_ac_l" />
+                    </LinearLayout>
+
+                </GridLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_save_badge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="프로필 배지 지정하기"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/nanumsquare_eb"
+                    android:background="@drawable/bg_rounded_white"
+                    android:backgroundTint="#9C8882"
+                    android:padding="12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</ScrollView>

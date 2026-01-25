@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg_sage"
+    android:background="#AECAB3"
     android:padding="20dp"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,9 +37,8 @@
                 android:layout_height="wrap_content"
                 android:text="닉네임님의 1월 감정 요약"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/card_dark_navy"
-                android:fontFamily="@font/handwriting_font"
+                android:textColor="#686871"
+                android:fontFamily="@font/nanumsquare_eb"
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toEndOf="@id/iv_badge"
                 app:layout_constraintTop_toTopOf="@id/iv_badge"/>
@@ -48,36 +48,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:textColor="@color/gray_600"
-                android:fontFamily="@font/handwriting_font"
+                android:textColor="#6D6D6D"
+                android:fontFamily="@font/nanumsquare_r"
+                android:layout_marginTop="6dp"
                 android:layout_marginStart="10dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_banner_title"
                 app:layout_constraintStart_toEndOf="@id/iv_badge"/>
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_media_play"
-                app:tint="@color/gray_400"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_expand_circle_arrow"
+                android:rotation="270"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <TextView
-            android:id="@+id/tv_home_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2026년 2월 6일 금요일"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_dark"
-            android:fontFamily="@font/handwriting_font"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"/>
-
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -88,18 +75,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rounded_white"
-                android:paddingTop="40dp"
-                android:paddingBottom="40dp"
+                android:paddingTop="20dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tvDiaryDayText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/handwriting_font"
+                    android:text="2026년 2월 6일 금요일"
+                    android:textColor="#536059"
+                    android:textSize="26sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:id="@+id/dividerDiary"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="#CEDBD6"
+                    app:layout_constraintTop_toBottomOf="@id/tvDiaryDayText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_cat"
                     android:layout_width="220dp"
                     android:layout_height="220dp"
+                    android:layout_marginTop="30dp"
                     android:src="@drawable/img_home_cat"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dividerDiary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -111,24 +121,24 @@
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textColor="@color/gray_600"
-                    android:fontFamily="@font/handwriting_font"
+                    android:fontFamily="@font/nanumsquare_r"
                     android:layout_marginTop="20dp"
                     app:layout_constraintTop_toBottomOf="@id/iv_cat"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_go_write"
+                    android:id="@+id/btn_today_write"
                     android:layout_width="320dp"
-                    android:layout_height="130dp"
-                    android:text="이야기를 들려주세요"
+                    android:layout_height="150dp"
+                    android:text="이야기를 들려주기"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="26sp"
                     android:fontFamily="@font/handwriting_font"
                     android:background="@drawable/bg_btn_story"
                     android:paddingTop="15dp"
-                    android:layout_marginTop="-20dp"
+                    android:layout_marginTop="-30dp"
                     app:layout_constraintTop_toBottomOf="@id/tv_question"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -237,74 +247,76 @@
             android:layout_marginBottom="20dp"/>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_mind_card"
+        <!-- 마음 카드 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_rounded_dark"
-            android:backgroundTint="@color/card_dark_navy"
-            android:padding="25dp">
+            app:cardBackgroundColor="#1E3448"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="3dp">
 
-            <TextView
-                android:id="@+id/tv_card_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오늘의 마음 카드 🌙"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/handwriting_font"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <View
-                android:id="@+id/divider_card"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#80FFFFFF"
-                android:layout_marginTop="15dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_card_title"/>
-
-            <TextView
-                android:id="@+id/tv_analysis_result"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="아직 일기를 작성하지 않았어요.\n이야기를 작성하고 마음 답장을 확인해요."
-                android:textColor="#E0E0E0"
-                android:textSize="16sp"
-                android:fontFamily="@font/handwriting_font"
-                android:layout_marginTop="20dp"
-                android:lineSpacingExtra="6dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_card"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_mission"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:text="오늘의 미션: 걱정 스위치 끄고 푹 잠들기"
-                android:textColor="#5D7663"
-                android:textStyle="bold"
-                android:background="@drawable/bg_rounded_white"
-                android:visibility="gone"
-                android:layout_marginTop="25dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_analysis_result"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="오늘의 마음 카드🌙"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanumsquare_eb" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="#FFFFFF" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_go_detail"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="상세 분석 보러가기"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/handwriting_font"
-            android:background="@drawable/bg_rounded_white"
-            android:backgroundTint="#8FA3D8"
-            android:visibility="gone"
-            android:layout_marginTop="25dp"/>
+                <TextView
+                    android:id="@+id/tvNicknameMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임님, 오늘은 여기서 멈춰도 괜찮아요."
+                    android:textColor="#92B9E2"
+                    android:fontFamily="@font/nanumsquarez_b"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="충분히 애썼어요. 무거운 마음은 여기에 두고 가요."
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/nanumsquare_l"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:cardBackgroundColor="#D9D9D9"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:id="@+id/tvMissionText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="오늘의 미션: 걱정 스위치 끄고 푹 잠들기"
+                        android:textColor="#535996"
+                        android:textSize="13sp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_sage"
+    android:padding="20dp">
+
+    <!-- 오늘 일기를 작성할 작성 화면 화면(수정화면으로도 공용 사용) -->
+    <!-- 헤더 -->
+    <TextView
+        android:id="@+id/tvMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="당신의 오늘을 기록해주세요."
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 작성 모드 전체 영역 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_write_mode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/tvMonth"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 일기 카드 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDiary"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_save_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- 카드 내부는 스크롤: 카드 전체가 아니라 "작성 영역"만 스크롤 -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scroll_write_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:clipToPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tvDiaryDayText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/handwriting_font"
+                        android:text="2026년 2월 6일 금요일"
+                        android:textColor="#536059"
+                        android:textSize="26sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="#CEDBD6" />
+
+                    <!-- 작성 카드 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_write_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_rounded_white"
+                        android:padding="20dp">
+
+                        <!-- 감정 선택 안내(태그 옆에 미리보기 하나) -->
+                        <ImageView
+                            android:id="@+id/iv_emotion_preview"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/emotion_normal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_tag_guide"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/handwriting_font"
+                            android:text="오늘의 감정을 선택해주세요"
+                            android:textColor="@color/gray_600"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/iv_emotion_preview"
+                            app:layout_constraintTop_toTopOf="@id/iv_emotion_preview"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_emotion_preview" />
+
+                        <!-- 감정 라디오(아이콘 + 텍스트) -->
+                        <HorizontalScrollView
+                            android:id="@+id/scroll_mood"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:clipToPadding="false"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:scrollbars="none"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_tag_guide">
+
+                            <RadioGroup
+                                android:id="@+id/rg_mood"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/rb_joy"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="15dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_joy"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="기쁨"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_confidence"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="15dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_confidence"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="자신감"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_calm"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="15dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_calm"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="평온"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_normal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="15dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_normal"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="평범"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_depression"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="15dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_sad"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="우울"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_anger"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="15dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_angry"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="분노"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_fatigue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="5dp"
+                                    android:button="@null"
+                                    android:drawableTop="@drawable/emotion_tired"
+                                    android:drawablePadding="8dp"
+                                    android:fontFamily="@font/handwriting_font"
+                                    android:gravity="center"
+                                    android:text="피곤함"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="12sp" />
+                            </RadioGroup>
+                        </HorizontalScrollView>
+
+                        <View
+                            android:id="@+id/divider_write"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gray_300"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/scroll_mood" />
+
+                        <EditText
+                            android:id="@+id/et_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@null"
+                            android:hint="제목을 입력해주세요."
+                            android:textColor="#6D9779"
+                            android:textColorHint="#6D9779"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/nanumsquare_eb"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/divider_write" />
+
+                        <!-- 본문은 길어지므로 내부 스크롤 + 충분한 높이 확보 -->
+                        <EditText
+                            android:id="@+id/et_content"
+                            android:layout_width="0dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@null"
+                            android:gravity="top|start"
+                            android:hint="글을 작성해주세요."
+                            android:overScrollMode="always"
+                            android:scrollbars="vertical"
+                            android:maxLines="10"
+                            android:minLines="6"
+                            android:inputType="textMultiLine"
+                            android:textColor="#000000"
+                            android:textColorHint="#CECECE"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/handwriting_font"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/et_title"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 일기 작성 완료하기 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_card"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:text="일기 작성 완료하기"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="@font/nanumsquare_eb"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="24dp"
+            app:backgroundTint="#C077A4"
+            app:strokeColor="#FEFFED"
+            app:strokeWidth="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

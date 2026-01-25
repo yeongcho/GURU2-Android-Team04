@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BFD8C1">
+    android:background="#AECAB3">
 
     <!-- 일기 모아보기 (주차별 리스트 목록함)-->
     <!-- 이전 달 -->
