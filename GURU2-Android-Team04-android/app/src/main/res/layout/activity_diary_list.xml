@@ -196,11 +196,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutWeekSelector" />
 
-
-    <!--
-        이후 일기 카드들도 동일한 구조로 반복
-        - 감정 이모지 + 제목 + 날짜(일/요일) 표시
-        - 클릭 시 해당 일기 상세 화면(activity_archive_diary_detail.xml)으로 이동
-    -->
-
+    <!-- 메뉴바 -->
+    <include
+        android:id="@+id/include_bottom_nav"
+        layout="@layout/view_bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

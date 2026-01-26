@@ -44,7 +44,7 @@
             android:id="@+id/btnPrevMonth"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="80dp"
             android:src="@drawable/ic_arrow_left" />
 
         <!-- 선택된 날짜 표시 -->
@@ -55,8 +55,7 @@
             android:layout_marginHorizontal="16dp"
             android:text="2026년 01일 08일"
             android:textColor="#000000"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:textSize="20sp"
             android:fontFamily="@font/nanumsquare_eb" />
 
         <!-- 다음 일기로 이동 -->
@@ -64,7 +63,7 @@
             android:id="@+id/btnNextMonth"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="80dp"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
@@ -115,11 +114,6 @@
                         android:orientation="vertical"
                         android:padding="20dp">
 
-                        <!-- 날짜 + 공유 버튼 -->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
                             <!-- 일기 날짜(요일 포함) -->
                             <TextView
                                 android:id="@+id/tvDiaryDayText"
@@ -130,7 +124,6 @@
                                 android:text="8일 목요일"
                                 android:textColor="#536059"
                                 android:textSize="26sp" />
-                        </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"
@@ -158,8 +151,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:text="태그: 평온"
-                                android:textSize="22sp"
+                                android:text="태그: 자신감"
+                                android:textSize="18sp"
                                 android:textColor="#000000" />
 
                             <!-- 즐겨찾기(하트) 아이콘 -->
@@ -168,7 +161,7 @@
                                 android:id="@+id/ivDetailFavorites"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:layout_marginStart="134dp"
+                                android:layout_marginStart="100dp"
                                 android:src="@drawable/ic_favorites_x" />
                         </LinearLayout>
 
@@ -263,6 +256,7 @@
 
                     <!-- 위로/격려 문구(두번째 문장) -->
                     <TextView
+                        android:id="@+id/tvConsoleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -401,7 +395,7 @@
                             android:id="@+id/tv_action_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="1. 내일 아침 망설임 없이 시작할 수 있도록, 공부할 페이지를 미리 활짝 펼쳐두세요."
+                            android:text="1. 내일 망설임없게 공부할 페이지 펼쳐두기"
                             android:textSize="14sp"
                             android:textColor="#E7FFE9"
                             android:fontFamily="@font/nanumsquare_r"
@@ -413,7 +407,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:text="2. 시원한 물 한 잔으로 불안을 씻어내고, 스마트폰 전원을 꺼서 뇌에게 온전한 쉼을 선물하세요."
+                            android:text="2. 시원한 물 한 마시기."
                             android:textSize="14sp"
                             android:textColor="#E7FFE9"
                             android:fontFamily="@font/nanumsquare_r"
@@ -425,7 +419,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:text="3. 머릿속을 맴도는 내일의 할일들은 플래너에 모두 털어놓고, 가벼운 마음으로 잠드세요."
+                            android:text="3. 내일의 할일들은 플래너에 모두 적기."
                             android:textSize="14sp"
                             android:textColor="#E7FFE9"
                             android:fontFamily="@font/nanumsquare_r"
@@ -473,4 +467,13 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- 메뉴바 -->
+    <include
+        android:id="@+id/include_bottom_nav"
+        layout="@layout/view_bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

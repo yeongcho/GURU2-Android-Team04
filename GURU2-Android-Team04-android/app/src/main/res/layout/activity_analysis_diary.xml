@@ -98,8 +98,12 @@
             <TextView
                 android:id="@+id/tvDiaryContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
+                android:overScrollMode="always"
+                android:scrollbars="vertical"
+                android:maxLines="10"
+                android:minLines="6"
                 android:lineSpacingExtra="8dp"
                 android:text="오랜만에 고등학교 때 친구들을 만났다. ... (생략)"
                 android:textColor="#000000"
@@ -151,7 +155,5 @@
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_arrow_down_24" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

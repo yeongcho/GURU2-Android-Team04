@@ -24,7 +24,6 @@
             - 홈화면으로 이동하는 버튼
     -->
 
-
 <!-- 분석 카드 컨테이너(중앙 배치) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardContainer"
@@ -220,7 +219,5 @@
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_arrow_down_24" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

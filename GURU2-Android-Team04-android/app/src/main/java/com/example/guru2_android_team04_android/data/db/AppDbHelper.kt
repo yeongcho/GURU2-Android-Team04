@@ -218,7 +218,7 @@ class AppDbHelper(context: Context) :
         if (oldVersion < 5) {
             // 예외처리) SQLite 버전에 따라 RENAME COLUMN 지원 여부가 달라서 2단계로 방어
             try {
-                db.execSQL("ALTER TABLE ${AppDb.T.SETTINGS} RENAME COLUMN key TO setting_key;")
+                db.execSQL("ALTER TABLE ${AppDb.T.SETTINGS} RENAME COLUMN `key` TO setting_key;")
             } catch (_: Exception) {
                 // 예외처리) RENAME COLUMN이 불가능한 환경이면 테이블 재생성 + 데이터 이관 방식으로 처리
                 db.execSQL(
@@ -236,7 +236,7 @@ class AppDbHelper(context: Context) :
                 db.execSQL(
                     """
                     INSERT INTO settings_new(owner_id, setting_key, value)
-                    SELECT owner_id, key, value
+                    SELECT owner_id, `key`, value
                     FROM ${AppDb.T.SETTINGS};
                     """.trimIndent()
                 )

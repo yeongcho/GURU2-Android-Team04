@@ -47,7 +47,7 @@
                 android:id="@+id/ivFavorite"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="40dp"
                 android:src="@drawable/ic_favorites_o" />
         </LinearLayout>
 
@@ -110,6 +110,5 @@
             android:textColor="#9BAAFF"
             android:fontFamily="@font/nanumsquare_eb"
             android:textSize="13sp" />
-
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

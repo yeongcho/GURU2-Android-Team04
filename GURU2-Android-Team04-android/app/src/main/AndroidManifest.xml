@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- 갤러리 읽기 권한 (이미지) -->
     <uses-permission
@@ -22,7 +23,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="GURU2AndroidTeam04android"
+        android:label="GURU2Moonlog"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GURU2AndroidTeam04android"
@@ -38,31 +39,70 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SplashActivity" android:exported="false" />
-        <activity android:name=".OnboardingActivity" android:exported="false" />
-        <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".SignupActivity" android:exported="false" />
-        <activity android:name=".StartActivity" android:exported="false" />
-        <activity android:name=".HomeActivity" android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
 
-        <activity android:name=".DiaryEditorActivity" android:exported="false" />
-        <activity android:name=".TodayDiaryDetailActivity" android:exported="false" />
+        <activity
+            android:name=".DiaryEditorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TodayDiaryDetailActivity"
+            android:exported="false" />
 
-        <activity android:name=".AnalysisStartActivity" android:exported="false" />
-        <activity android:name=".AnalysisDiaryActivity" android:exported="false" />
-        <activity android:name=".AnalysisComfortActivity" android:exported="false" />
-        <activity android:name=".AnalysisActionsActivity" android:exported="false" />
+        <activity
+            android:name=".AnalysisStartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnalysisDiaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnalysisComfortActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnalysisActionsActivity"
+            android:exported="false" />
 
-        <activity android:name=".DiaryCalendarActivity" android:exported="false" />
-        <activity android:name=".MonthlySummaryActivity" android:exported="false" />
-        <activity android:name=".DiaryListActivity" android:exported="false" />
-        <activity android:name=".ArchiveDiaryDetailActivity" android:exported="false" />
+        <activity
+            android:name=".DiaryCalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MonthlySummaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DiaryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ArchiveDiaryDetailActivity"
+            android:exported="false" />
 
-        <activity android:name=".MyPageActivity" android:exported="false" />
-        <activity android:name=".ProfileBadgeEditActivity" android:exported="false" />
-        <activity android:name=".ProfileEditActivity" android:exported="false" />
-        <activity android:name=".MindCardArchiveActivity" android:exported="false" />
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileBadgeEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MindCardArchiveActivity"
+            android:exported="false" />
 
     </application>
-
 </manifest>

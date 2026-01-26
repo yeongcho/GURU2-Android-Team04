@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase
 import com.example.guru2_android_team04_android.data.model.MindCardPreview
 import com.example.guru2_android_team04_android.data.model.Mood
 import com.example.guru2_android_team04_android.util.JsonMini
+import com.example.guru2_android_team04_android.util.MindCardTextUtil
 
 // FavoriteDao : 즐겨찾기(하트) 기능을 위한 DAO.
 // - "즐겨찾기 여부 변경"과 "즐겨찾기 카드 목록 조회"를 담당한다.
@@ -61,7 +62,7 @@ class FavoriteDao(private val db: SQLiteDatabase) {
     // - UI 공통 카드 모델(MindCardPreview)로 통일한다.
     // 처리 방식:
     // - diary_entries + ai_analysis를 LEFT JOIN하여 분석이 없는 경우도 목록은 보여준다.
-    // - comfortPreview에는 summary를 넣는다(분석이 없으면 '분석 전').
+    // - comfortPreview에는 full_text를 넣는다(분석이 없으면 '분석 전').
     // - mission은 actions_json의 첫 번째 항목을 사용하고, 없으면 기본 미션을 사용한다.
     fun getFavoriteMindCards(ownerId: String): List<MindCardPreview> {
         val out = ArrayList<MindCardPreview>()
@@ -74,7 +75,7 @@ class FavoriteDao(private val db: SQLiteDatabase) {
               e.title,
               e.mood,
               e.tags_json,
-              COALESCE(a.summary, '분석 전') AS summary,
+              COALESCE(a.full_text, '') AS full_text,
               COALESCE(a.actions_json, '[]') AS actions_json
             FROM ${AppDb.T.ENTRIES} e
             LEFT JOIN ${AppDb.T.ANALYSIS} a
@@ -85,13 +86,15 @@ class FavoriteDao(private val db: SQLiteDatabase) {
             arrayOf(ownerId)
         ).use { c ->
             while (c.moveToNext()) {
-
                 val entryId = c.getLong(0)
                 val dateYmd = c.getString(1)
                 val title = c.getString(2)
                 val mood = Mood.fromDb(c.getInt(3))
                 val tags = JsonMini.jsonToList(c.getString(4))
-                val summary = c.getString(5)
+
+                val fullText = c.getString(5).orEmpty().trim()
+
+                val comfortPreview = if (fullText.isBlank()) "" else MindCardTextUtil.makePreview(fullText)
 
                 val actions = JsonMini.jsonToList(c.getString(6))
                 val mission = actions.firstOrNull()
@@ -105,7 +108,7 @@ class FavoriteDao(private val db: SQLiteDatabase) {
                         title = title,
                         mood = mood,
                         tags = tags,
-                        comfortPreview = summary,
+                        comfortPreview = comfortPreview,
                         mission = mission
                     )
                 )

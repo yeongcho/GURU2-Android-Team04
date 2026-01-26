@@ -117,8 +117,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:text="태그: 평온"
-                                android:textSize="22sp"
+                                android:text="태그: 자신감"
+                                android:textSize="18sp"
                                 android:textColor="#000000" />
 
                             <!-- 수정 버튼(선택 시, 일기 수정(작성)화면(activity_diary_editor.xml)으로 이동) -->
@@ -126,7 +126,7 @@
                                 android:id="@+id/tvDetailEdit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="60dp"
+                                android:layout_marginStart="36dp"
                                 android:text="수정"
                                 android:textSize="16sp"
                                 android:textColor="#446D5F"
@@ -234,6 +234,7 @@
 
                     <!-- Gemini API를 통한 위로 또는 격려의 문구 요약(두번째 문장)) -->
                     <TextView
+                        android:id="@+id/tvConsoleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -286,4 +287,13 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- 메뉴바 -->
+    <include
+        android:id="@+id/include_bottom_nav"
+        layout="@layout/view_bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

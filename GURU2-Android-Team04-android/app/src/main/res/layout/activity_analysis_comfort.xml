@@ -124,7 +124,5 @@
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_arrow_down_24" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

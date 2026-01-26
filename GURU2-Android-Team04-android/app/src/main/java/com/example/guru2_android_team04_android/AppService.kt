@@ -316,10 +316,11 @@ class AppService(
     }
 
     // 저장 완료 -> 홈에서 보여줄 "마음 카드(Preview)" 생성
-    // 특징:
-    // - 저장은 반드시 수행한다.
-    // - AI 분석은 실패할 수 있으므로, 실패하더라도 Preview 카드 생성은 가능하게 만든다.
-    fun saveEntryAndPrepareMindCardSafe(entry: DiaryEntry): AppResult<MindCardPreview> {
+// 특징:
+// - 저장은 반드시 수행한다.
+// - AI 분석은 실패할 수 있으므로, 실패하더라도 Preview 카드 생성은 가능하게 만든다.
+// - 추가: 분석 실패 시 에러(AppError)를 함께 반환하여 UI에서 토스트로 안내할 수 있게 한다.
+    fun saveEntryAndPrepareMindCardSafe(entry: DiaryEntry): AppResult<MindCardPreviewResult> {
         val db = helper.writableDatabase
 
         val ymd = DateUtil.todayYmd()
@@ -350,30 +351,29 @@ class AppService(
         BadgeEngine(db).checkAndGrant(entry.ownerId)
 
         // 분석은 실패해도 저장된 일기는 유지되어야 하므로 try-catch 결과를 분리한다.
-        val (analysis, _) = when (val r = runAnalysisSafe(entryId)) {
-            is AppResult.Success -> r.data to null
-            is AppResult.Failure -> null to r.error
-        }
+        val analysisR = runAnalysisSafe(entryId)
+        val analysis = (analysisR as? AppResult.Success)?.data
+        val err = (analysisR as? AppResult.Failure)?.error
 
         val short = makeShortComfortMessage(analysis)
         val mission1 = analysis?.actions?.firstOrNull()?.takeIf { it.isNotBlank() } ?: "천천히 숨 고르기"
 
-        return AppResult.Success(
-            MindCardPreview(
-                entryId = entryId,
-                dateYmd = ymd,
-                title = toSave.title,
-                mood = toSave.mood,
-                tags = toSave.tags,
-                comfortPreview = short,
-                mission = mission1
-            )
+        val preview = MindCardPreview(
+            entryId = entryId,
+            dateYmd = ymd,
+            title = toSave.title,
+            mood = toSave.mood,
+            tags = toSave.tags,
+            comfortPreview = short,
+            mission = mission1
         )
+
+        return AppResult.Success(MindCardPreviewResult(preview, err))
     }
 
     // 분석(fullText)이 있으면 앞쪽 일부를 프리뷰로 만들고, 분석이 없으면 기본 위로 문구를 반환한다.
     private fun makeShortComfortMessage(analysis: AiAnalysis?): String {
-        if (analysis == null) return "오늘도 기록해줘서 고마워요. 지금은 충분히 잘하고 있어요."
+        if (analysis == null) return "아직 일기를 작성하지 않았어요. 이야기를 작성하고 마음 답장을 확인해요."
         val preview = MindCardTextUtil.makePreview(analysis.fullText, maxSentences = 2, maxChars = 90)
         return if (preview.isBlank()) analysis.summary else preview
     }
@@ -535,7 +535,10 @@ class AppService(
     // 분석 실행
     // - 네트워크/파싱/entry 미존재 등을 AppError로 매핑해 UI가 안정적으로 처리할 수 있게 한다.
     fun runAnalysisSafe(entryId: Long): AppResult<AiAnalysis> {
-        // 예외처리) 네트워크가 없으면 API 호출 전에 즉시 실패 처리
+        //예외처리)
+        // 캐시 먼저 반환
+        getAnalysis(entryId)?.let { return AppResult.Success(it) }
+        //캐시가 없을 때만 네트워크 체크
         if (!NetworkUtil.isNetworkAvailable(appContext)) {
             return AppResult.Failure(AppError.NetworkUnavailable)
         }
@@ -546,7 +549,7 @@ class AppService(
             val msg = e.message.orEmpty()
             when {
                 msg.contains("LLM API failed") -> {
-                    val code = msg.filter { it.isDigit() }.toIntOrNull() ?: -1
+                    val code = Regex("LLM API failed: (\\d+)").find(msg)?.groupValues?.get(1)?.toInt() ?: -1
                     AppResult.Failure(AppError.ApiError(code))
                 }
 
@@ -589,8 +592,14 @@ class AppService(
         val db = helper.readableDatabase
         val analysis = AnalysisDao(db).getByEntryId(entryId)
 
-        val bmp = CardExporter.renderMindCard(entry, analysis)
-        return CardExporter.saveToGallery(context.applicationContext, bmp, "mindcard_${entry.dateYmd}")
+        // 3장 저장하고, 첫 번째 Uri를 대표로 반환(기존 시그니처 유지)
+        val uris = CardExporter.save3ScreensToGallery(
+            context = context,
+            entry = entry,
+            analysis = analysis,
+            baseName = "mindcard_${entry.dateYmd}"
+        )
+        return uris.first()
     }
 
     // Export 안전 버전
@@ -598,6 +607,38 @@ class AppService(
     fun exportMindCardToGallerySafe(context: Context, entryId: Long): AppResult<Uri> {
         return try {
             AppResult.Success(exportMindCardToGallery(context, entryId))
+        } catch (_: SecurityException) {
+            AppResult.Failure(AppError.PermissionDenied)
+        } catch (_: Exception) {
+            AppResult.Failure(AppError.StorageError)
+        }
+    }
+
+    // ✅ NEW: 분석 화면(일기 보기/위로/실천안) 3장을 "XML 디자인 그대로" 캡처해서 갤러리에 저장한다.
+    // - render는 테마/리소스 영향을 받으므로 Activity context를 그대로 전달한다.
+    // - 저장은 applicationContext로 진행한다.
+    fun exportAnalysisScreensToGallery(context: Context, entryId: Long): List<Uri> {
+        val entry = loadEntryByIdOrNull(entryId) ?: throw IllegalArgumentException("Entry not found")
+        val db = helper.readableDatabase
+        val analysis = AnalysisDao(db).getByEntryId(entryId)
+
+        val bmp1 = CardExporter.renderAnalysisDiaryScreen(context, entry)
+        val bmp2 = CardExporter.renderAnalysisComfortScreen(context, entry, analysis)
+        val bmp3 = CardExporter.renderAnalysisActionsScreen(context, entry, analysis)
+
+        val appCtx = context.applicationContext
+        return listOf(
+            CardExporter.saveToGallery(appCtx, bmp1, "analysis_diary_${entry.dateYmd}"),
+            CardExporter.saveToGallery(appCtx, bmp2, "analysis_comfort_${entry.dateYmd}"),
+            CardExporter.saveToGallery(appCtx, bmp3, "analysis_actions_${entry.dateYmd}")
+        )
+    }
+
+    // ✅ NEW: 3장 저장 안전 버전
+    // - 권한 문제/저장 실패 등을 AppError로 변환해 UI에서 안내 가능하게 한다.
+    fun exportAnalysisScreensToGallerySafe(context: Context, entryId: Long): AppResult<List<Uri>> {
+        return try {
+            AppResult.Success(exportAnalysisScreensToGallery(context, entryId))
         } catch (_: SecurityException) {
             AppResult.Failure(AppError.PermissionDenied)
         } catch (_: Exception) {

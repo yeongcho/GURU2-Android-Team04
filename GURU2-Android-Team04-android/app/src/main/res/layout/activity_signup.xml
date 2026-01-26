@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="닉네임을 입력해주세요."
+            app:hintEnabled="false"
             app:boxBackgroundMode="outline"
             app:boxBackgroundColor="#B3D9D9D9"
             app:boxStrokeColor="#FFFFFF"
@@ -78,12 +78,13 @@
                 android:id="@+id/et_signup_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:hint="닉네임을 입력해주세요."
+                android:inputType="textPersonName"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="#AA90F9"
+                android:textColor="#FFFFFF"
                 android:fontFamily="@font/nanumsquarez_b"
-                android:textColorHint="#AA90F9" />
+                android:textColorHint="#FFFFFF" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="이메일을 입력해주세요."
+            app:hintEnabled="false"
             app:boxBackgroundMode="outline"
             app:boxBackgroundColor="#B3D9D9D9"
             app:boxStrokeColor="#FFFFFF"
@@ -124,12 +125,13 @@
                 android:id="@+id/et_signup_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:hint="이메일을 입력해주세요."
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="#AA90F9"
+                android:textColor="#FFFFFF"
                 android:fontFamily="@font/nanumsquarez_b"
-                android:textColorHint="#AA90F9" />
+                android:textColorHint="#FFFFFF" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="비밀번호를 입력해주세요."
+            app:hintEnabled="false"
             app:boxBackgroundMode="outline"
             app:boxBackgroundColor="#B3D9D9D9"
             app:boxStrokeColor="#FFFFFF"
@@ -171,12 +173,12 @@
                 android:id="@+id/et_signup_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="비밀번호를 입력해주세요."
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:fontFamily="@font/nanumsquarez_b"
-                android:textColor="#AA90F9"
-                android:textColorHint="#AA90F9"/>
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -199,7 +201,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="비밀번호를 다시 입력해주세요."
+            app:hintEnabled="false"
             app:boxBackgroundMode="outline"
             app:boxBackgroundColor="#B3D9D9D9"
             app:boxStrokeColor="#FFFFFF"
@@ -218,16 +220,16 @@
                 android:id="@+id/et_signup_check_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="비밀번호를 다시 입력해주세요."
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="#AA90F9"
-                android:fontFamily="@font/nanumsquarez_b"
-                android:textColorHint="#AA90F9" />
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- 화원가입 버튼(클릭시, 로그인 화면(activity_login.xml)으로 이동) -->
+        <!-- 화원가입 버튼(클릭시, 메인 시작 화면(activity_start.xml)으로 이동) -->
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
@@ -246,5 +248,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

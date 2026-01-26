@@ -1,5 +1,6 @@
 package com.example.guru2_android_team04_android.llm
 
+import android.util.Log
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -95,14 +96,14 @@ class GeminiClient(
 
         // 동기 네트워크 호출(백그라운드 스레드에서 실행되어야 함)
         http.newCall(req).execute().use { resp ->
-
-            // 예외처리) 서버 오류/인증 실패 등으로 응답이 실패하면 코드 포함 에러 메시지로 예외를 발생시킨다.
-            if (!resp.isSuccessful) {
-                throw RuntimeException("LLM API failed: ${resp.code}")
-            }
-
             // 예외처리) body가 null일 수 있으므로 orEmpty로 방어한다.
             val raw = resp.body?.string().orEmpty()
+            // 예외처리) 서버 오류/인증 실패 등으로 응답이 실패하면 코드 포함 에러 메시지로 예외를 발생시킨다.
+            if (!resp.isSuccessful) {
+                Log.e("GeminiHTTP", "code=${resp.code} body=${raw.take(2000)}")
+                throw RuntimeException("LLM API failed: ${resp.code} body=${raw.take(800)}")
+            }
+
 
             // Gemini 응답 JSON에서 "모델이 생성한 텍스트" 부분만 추출
             val text = extractTextFromGeminiResponse(raw)

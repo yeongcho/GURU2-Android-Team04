@@ -85,7 +85,5 @@
             app:cornerRadius="50dp"
             app:strokeWidth="0.7dp"
             app:strokeColor="#28339C"/>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

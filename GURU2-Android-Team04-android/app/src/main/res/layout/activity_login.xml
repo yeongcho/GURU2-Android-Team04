@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@drawable/bg_start">
+    android:background="@drawable/bg_start"
+    android:fillViewport="true">
 
     <!--
         Figma: 로그인 화면(activity_login.xml) (진행순서 3)
@@ -31,26 +30,26 @@
             android:id="@+id/tv_login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그인을 진행할게요."
-            android:textSize="26sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/seoulhangang_eb"
             android:layout_marginTop="160dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:fontFamily="@font/seoulhangang_eb"
+            android:text="로그인을 진행할게요."
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 아이디 입력 안내 문구 -->
         <TextView
             android:id="@+id/tv_id_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이메일 계정(아이디)"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/nanumsquarez_b"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_login_title"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:fontFamily="@font/nanumsquarez_b"
+            android:text="이메일 계정(아이디)"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_login_title" />
 
         <!-- 아이디 입력란 -->
         <com.google.android.material.textfield.TextInputLayout
@@ -58,30 +57,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="이메일을 입력해주세요."
-            app:boxBackgroundMode="outline"
             app:boxBackgroundColor="#B3D9D9D9"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:boxStrokeColor="#FFFFFF"
             app:boxStrokeWidth="3dp"
             app:boxStrokeWidthFocused="3dp"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_id_title"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tv_id_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:hint="이메일을 입력해주세요."
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textSize="16sp"
-                android:textColor="#AA90F9"
-                android:fontFamily="@font/nanumsquarez_b"
-                android:textColorHint="#AA90F9" />
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,13 +89,13 @@
             android:id="@+id/tv_password_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/nanumsquarez_b"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/til_id"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:fontFamily="@font/nanumsquarez_b"
+            android:text="비밀번호"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_id" />
 
         <!-- 비밀번호 입력란 -->
         <com.google.android.material.textfield.TextInputLayout
@@ -104,43 +103,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="바밀번호를 입력해주세요."
-            app:boxBackgroundMode="outline"
             app:boxBackgroundColor="#B3D9D9D9"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:boxStrokeColor="#FFFFFF"
             app:boxStrokeWidth="3dp"
             app:boxStrokeWidthFocused="3dp"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:passwordToggleEnabled="true"
-            app:layout_constraintTop_toBottomOf="@id/tv_password_title"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tv_password_title"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="비밀번호를 입력해주세요."
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:textSize="16sp"
-                android:fontFamily="@font/nanumsquarez_b"
-                android:textColor="#AA90F9"
-                android:textColorHint="#AA90F9"/>
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--꾸밈 선-->
         <View
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="12dp"
             android:background="#FFFFFF"
-            app:layout_constraintTop_toBottomOf="@id/til_password"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
 
         <ImageView
             android:id="@+id/iv_star"
@@ -149,43 +148,43 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="12dp"
             android:src="@drawable/ic_star_outline_24"
-            app:layout_constraintTop_toBottomOf="@id/til_password"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
 
         <View
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="12dp"
             android:background="#FFFFFF"
-            app:layout_constraintTop_toBottomOf="@id/til_password"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
 
         <!-- 버튼 그룹 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
             android:orientation="vertical"
-            android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <!-- 로그인 버튼(클릭시, 시작화면(activity_start.xml)으로 이동) -->
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="로그인"
-                android:textSize="16sp"
-                android:fontFamily="@font/nanumsquare_eb"
                 android:backgroundTint="#999ECB"
-                android:textColor="#FFFFFF"
                 android:elevation="4dp"
+                android:fontFamily="@font/nanumsquare_eb"
+                android:text="로그인"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
                 app:cornerRadius="50dp"
-                app:strokeWidth="0.7dp"
-                app:strokeColor="#28339C"/>
+                app:strokeColor="#28339C"
+                app:strokeWidth="0.7dp" />
 
             <!-- 회원가입 버튼(클릭시, 회원가입(activity_signup.xml)으로 이동) -->
             <Button
@@ -193,16 +192,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-                android:text="회원가입"
-                android:textSize="16sp"
-                android:fontFamily="@font/nanumsquare_eb"
                 android:backgroundTint="#4A57CD"
-                android:textColor="#FFFFFF"
                 android:elevation="4dp"
+                android:fontFamily="@font/nanumsquare_eb"
+                android:text="회원가입"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
                 app:cornerRadius="50dp"
-                app:strokeWidth="0.7dp"
-                app:strokeColor="#28339C"/>
+                app:strokeColor="#28339C"
+                app:strokeWidth="0.7dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

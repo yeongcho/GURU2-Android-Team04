@@ -61,18 +61,17 @@
                 android:clipToPadding="false">
 
                 <!-- 프로필 이미지 -->
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_profile_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/ic_icon_profile"
-                    android:background="@drawable/bg_circle_gray"
-                    app:tint="#DEDEDE"
+                    android:scaleType="centerCrop"
                     android:padding="2dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:elevation="2dp"
                     android:layout_marginTop="10dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay_App_Circle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -480,11 +479,7 @@
                     android:background="@drawable/bg_rounded_white"
                     android:backgroundTint="#9C8882"
                     android:padding="12dp" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </FrameLayout>
-
 </ScrollView>

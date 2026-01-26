@@ -31,7 +31,6 @@ data class MindCardPreview(
 
     // 카드에 표시할 미션 1개
     // - AI 행동 제안 중 첫 번째 항목
-    // - 홈/보관함 카드에서는 1개만 보여준다.
     val mission: String
 )
 

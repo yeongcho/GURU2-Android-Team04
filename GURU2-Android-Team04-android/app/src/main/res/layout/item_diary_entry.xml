@@ -11,6 +11,10 @@
     app:cardUseCompatPadding="true">
 
     <!-- 일기 리스트에서 쓸 아이템 -->
+    <!-- 구성 :
+        - 감정 이모지
+        - 일기 제목
+        - 일기 날짜 + 요일 -->
     <!-- 클릭 시 해당 일기 상세 화면 -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,7 +73,5 @@
                 android:gravity="center"
                 android:fontFamily="@font/nanumsquare_eb" />
         </LinearLayout>
-
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

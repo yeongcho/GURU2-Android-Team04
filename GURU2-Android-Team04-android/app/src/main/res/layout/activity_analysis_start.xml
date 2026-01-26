@@ -65,5 +65,4 @@
             app:strokeWidth="3dp"
             app:cornerRadius="12dp"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

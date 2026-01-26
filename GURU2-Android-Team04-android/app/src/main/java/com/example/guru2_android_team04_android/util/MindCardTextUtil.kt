@@ -71,4 +71,21 @@ object MindCardTextUtil {
         }
         return preview
     }
+
+    fun splitTwoLines(text: String): Pair<String, String> {
+        val t = text.trim()
+        if (t.isBlank()) return "" to ""
+        val parts = t.split("\n", ". ", "。", "!", "?", "…")
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+        return parts.getOrNull(0).orEmpty() to parts.getOrNull(1).orEmpty()
+    }
+
+    fun makeComfortLines(nickname: String, comfortPreview: String?): Pair<String, String> {
+        val (l1, l2) = splitTwoLines(comfortPreview.orEmpty())
+        val line1 = "${nickname}님, ${l1.ifBlank { "오늘도 기록해줘서 고마워요." }}"
+        val line2 = l2.ifBlank { "지금은 충분히 잘하고 있어요." }
+        return line1 to line2
+    }
+
 }
