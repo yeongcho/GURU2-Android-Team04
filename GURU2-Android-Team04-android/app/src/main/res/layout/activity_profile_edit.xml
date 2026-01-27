@@ -105,17 +105,6 @@
                         android:fontFamily="@font/nanumsquare_r"
                         android:layout_marginTop="2dp" />
 
-                    <!-- 대표 배지 이름(현재 적용된 배지 표시) -->
-                    <TextView
-                        android:id="@+id/tv_badge_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="감정 로그 수집가"
-                        android:textSize="15sp"
-                        android:textColor="#68A684"
-                        android:fontFamily="@font/nanumsquare_r"
-                        android:layout_marginTop="12dp" />
-
                     <!-- D-day -->
                     <TextView
                         android:id="@+id/tv_d_day"
@@ -127,18 +116,6 @@
                         android:fontFamily="@font/nanumsquare_r"
                         android:layout_marginTop="3dp" />
                 </LinearLayout>
-
-                <!-- 프로필 이미지 위에 표시되는 대표 배지 프레임 -->
-                <ImageView
-                    android:id="@+id/iv_badge_frame_mypage"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ic_badge_emotion_log"
-                    android:elevation="5dp"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
-                    app:layout_constraintEnd_toEndOf="@id/iv_profile_image"
-                    app:layout_constraintStart_toStartOf="@id/iv_profile_image"
-                    app:layout_constraintTop_toTopOf="@id/iv_profile_image" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -139,7 +139,7 @@
                     android:id="@+id/iv_badge_frame_mypage"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_badge_emotion_log"
+                    android:src="@drawable/ic_badge_traveler"
                     android:elevation="5dp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
                     app:layout_constraintEnd_toEndOf="@id/iv_profile_image"
@@ -336,7 +336,7 @@
                                 android:id="@+id/iv_badge_4"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/ic_badge_traveler" />
+                                android:src="@drawable/ic_badge_wine" />
 
                             <!-- 선택된 배지일 때만 visible -->
                             <ImageView
@@ -352,7 +352,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="돌아온 여행자"
+                            android:text="감정 소믈리에"
                             android:textColor="#000000"
                             android:fontFamily="@font/nanumsquare_ac_eb"
                             android:layout_marginTop="8dp" />
@@ -360,7 +360,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="오랜만에 들어 왔을 때"
+                            android:text="모든 종류의 감정 태그"
                             android:textSize="12sp"
                             android:textColor="#000000"
                             android:fontFamily="@font/nanumsquare_ac_l" />
@@ -410,55 +410,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="누적 일기 100개 작성"
-                            android:textSize="12sp"
-                            android:textColor="#000000"
-                            android:fontFamily="@font/nanumsquare_ac_l" />
-                    </LinearLayout>
-
-                    <!-- badge 6 -->
-                    <!-- 배지 클릭 시 선택 상태로 변경되고 체크 아이콘 표시 -->
-                    <LinearLayout
-                        android:id="@+id/layout_badge_6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_marginBottom="10dp">
-
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/iv_badge_6"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/ic_badge_wine" />
-
-                            <!-- 선택된 배지일 때만 visible -->
-                            <ImageView
-                                android:id="@+id/iv_check_6"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@android:drawable/checkbox_on_background"
-                                app:tint="#5D7663"
-                                android:layout_gravity="top|end"
-                                android:visibility="gone" />
-                        </FrameLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="감정 소믈리에"
-                            android:textColor="#000000"
-                            android:fontFamily="@font/nanumsquare_ac_eb"
-                            android:layout_marginTop="8dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="모든 종류의 감정 태그"
                             android:textSize="12sp"
                             android:textColor="#000000"
                             android:fontFamily="@font/nanumsquare_ac_l" />

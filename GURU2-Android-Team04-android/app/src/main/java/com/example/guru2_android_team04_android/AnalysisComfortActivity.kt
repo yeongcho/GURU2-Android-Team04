@@ -54,7 +54,10 @@ class AnalysisComfortActivity : AppCompatActivity() {
                         tvContent.text = r.data.fullText
 
                         // 해시태그: ["시험기간", "마음챙김"] -> "#시험기간 #마음챙김"
-                        tvTags.text = r.data.hashtags.joinToString(separator = " ") { "#$it" }
+                        tvTags.text = r.data.hashtags
+                            .map { it.trim().removePrefix("#") }
+                            .filter { it.isNotBlank() }
+                            .joinToString(" ") { "#$it" }
                     }
 
                     is AppResult.Failure -> {

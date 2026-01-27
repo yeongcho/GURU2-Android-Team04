@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 // ProfileEditUiBinder : 프로필 편집 화면(activity_profile_edit.xml) <-> AppService 연동 전담 클래스
 // 용도:
-// - 현재 사용자 프로필 정보를 불러와 화면에 표시한다(닉네임/이메일/D-day/대표 배지/프로필 이미지).
+// - 현재 사용자 프로필 정보를 불러와 화면에 표시한다(닉네임/이메일/D-day/프로필 이미지).
 // - 사용자가 입력한 닉네임과 선택한 프로필 이미지를 저장한다.
 // - Activity에서 이미지 선택 결과(URI)를 전달받아 즉시 미리보기에 반영한다.
 // 동작 흐름:
@@ -63,23 +63,6 @@ class ProfileEditUiBinder(
                 etNickname.setText(profile.nickname)
                 tvEmail.text = profile.emailOrAnon
                 tvDday.text = "나와 마주한 지 D+${profile.serviceDays}일 째"
-
-                // 대표 배지 표시
-                // - 배지가 없으면 배지명/프레임을 숨긴다.
-                val badge = profile.selectedBadge
-                if (badge == null) {
-                    tvBadgeName.visibility = android.view.View.GONE
-                    ivBadgeFrame.visibility = android.view.View.GONE
-                } else {
-                    tvBadgeName.visibility = android.view.View.VISIBLE
-                    ivBadgeFrame.visibility = android.view.View.VISIBLE
-                    tvBadgeName.text = badge.name
-
-                    // 배지 프레임 아이콘 설정
-                    ivBadgeFrame.setImageResource(
-                        activity.resources.getIdentifier("ic_badge_emotion_log", "drawable", activity.packageName)
-                    )
-                }
 
                 // 프로필 이미지 표시 우선순위
                 // 1) 사용자가 이번 화면에서 새로 선택한 이미지(selectedProfileImageUri)가 있으면 그것을 우선 표시

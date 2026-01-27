@@ -180,12 +180,19 @@ class MonthlySummaryUiBinder(
     private fun emotionFlowKo(flowRaw: String): String {
         if (flowRaw.isBlank()) return flowRaw
 
-        // "->" 기준으로 토큰 분리 후 trim으로 공백을 정리한다.
-        val tokens = flowRaw.split("->").map { it.trim() }.filter { it.isNotEmpty() }
+        // "->", "-->", "→" 등 다양한 화살표를 모두 구분자로 처리
+        val tokens = flowRaw
+            .trim()
+            .trim('\'', '"') // 혹시 값 자체에 따옴표가 들어오면 제거
+            .split(Regex("\\s*-+>\\s*|\\s*→\\s*|\\s*➜\\s*"))
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
 
         return tokens.joinToString(" -> ") { code ->
-            // 예외처리) 서버/데이터에서 "Tried" 같은 오타가 들어오면 TIRED로 정규화한다.
-            val normalized = if (code.equals("Tried", ignoreCase = true)) "TIRED" else code
+            val normalized = when {
+                code.equals("Tried", ignoreCase = true) -> "TIRED"
+                else -> code
+            }
 
             runCatching { Mood.valueOf(normalized.uppercase()) }
                 .getOrNull()
@@ -193,6 +200,7 @@ class MonthlySummaryUiBinder(
                 ?: code
         }
     }
+
 
     // parseYm : "yyyy-MM"을 (연,월)로 파싱한다.
     // 예외처리) 파싱 실패 시 기본값(1970-01)을 사용해 앱 크래시를 방지한다.

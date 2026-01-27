@@ -61,9 +61,8 @@ class ProfileBadgeEditUiBinder(
             BadgeSlot(activity.findViewById(R.id.layout_badge_1), activity.findViewById(R.id.iv_badge_1), activity.findViewById(R.id.iv_check_1), 1),
             BadgeSlot(activity.findViewById(R.id.layout_badge_2), activity.findViewById(R.id.iv_badge_2), activity.findViewById(R.id.iv_check_2), 4),
             BadgeSlot(activity.findViewById(R.id.layout_badge_3), activity.findViewById(R.id.iv_badge_3), activity.findViewById(R.id.iv_check_3), 2),
-            BadgeSlot(activity.findViewById(R.id.layout_badge_4), activity.findViewById(R.id.iv_badge_4), activity.findViewById(R.id.iv_check_4), 9994),
+            BadgeSlot(activity.findViewById(R.id.layout_badge_4), activity.findViewById(R.id.iv_badge_4), activity.findViewById(R.id.iv_check_4), 5),
             BadgeSlot(activity.findViewById(R.id.layout_badge_5), activity.findViewById(R.id.iv_badge_5), activity.findViewById(R.id.iv_check_5), 3),
-            BadgeSlot(activity.findViewById(R.id.layout_badge_6), activity.findViewById(R.id.iv_badge_6), activity.findViewById(R.id.iv_check_6), 5),
         )
 
         activity.lifecycleScope.launch(Dispatchers.IO) {
@@ -291,7 +290,6 @@ class ProfileBadgeEditUiBinder(
     // badgeIconResOf : 배지 ID/이름을 기반으로 아이콘 리소스를 결정한다.
     // 동작:
     // - badgeId가 알려진 값이면 ID 기반 고정 매핑
-    // - 그렇지 않으면 badgeName 키워드 포함 여부로 추정 매핑
     // 예외처리) 어떤 조건에도 해당하지 않으면 기본 아이콘으로 fallback 한다.
     private fun badgeIconResOf(badgeId: Int, badgeName: String): Int {
         return when (badgeId) {
@@ -300,15 +298,13 @@ class ProfileBadgeEditUiBinder(
             3 -> R.drawable.ic_badge_emotion_log
             4 -> R.drawable.ic_badge_three_days
             5 -> R.drawable.ic_badge_wine
-            9994 -> R.drawable.ic_badge_traveler
             else -> when {
                 badgeName.contains("꾸준") -> R.drawable.ic_badge_start
                 badgeName.contains("삼일") -> R.drawable.ic_badge_three_days
                 badgeName.contains("한 달") -> R.drawable.ic_badge_month
                 badgeName.contains("로그") -> R.drawable.ic_badge_emotion_log
                 badgeName.contains("소믈리에") -> R.drawable.ic_badge_wine
-                badgeName.contains("여행") -> R.drawable.ic_badge_traveler
-                else -> R.drawable.ic_badge_emotion_log
+                else -> R.drawable.ic_badge_traveler
             }
         }
     }
