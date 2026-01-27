@@ -36,10 +36,8 @@
   <tr>
     <td>
       <b>로그인 가능한 회원정보</b><br><br>
-
       아이디 : test123@example.com<br>
       비밀번호 : test123456
-    </td>
   </tr>
 </table>
 

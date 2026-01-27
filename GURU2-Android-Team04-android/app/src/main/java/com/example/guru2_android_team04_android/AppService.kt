@@ -135,6 +135,13 @@ class AppService(
                 db.setTransactionSuccessful()
                 db.endTransaction()
 
+                // 마이그레이션된 데이터를 바탕으로 배지 획득 여부 즉시 판별
+                val finalOwner = newOwner
+                checkAndGrantBadges(finalOwner)
+
+                session.setOwnerId(newOwner)
+                AppResult.Success(userId)
+
                 // 회원가입 완료 후 세션 ownerId를 USER_xxx로 전환
                 session.setOwnerId(newOwner)
                 AppResult.Success(userId)
@@ -200,6 +207,8 @@ class AppService(
                     // 예외처리) 트랜잭션 종료는 반드시 수행
                     db.endTransaction()
                 }
+                // 로그인 후 통합된 데이터를 바탕으로 배지 획득 여부 즉시 판별
+                checkAndGrantBadges(newOwner)
             }
 
             // 기본 프로필 이미지 값이 없으면 저장
