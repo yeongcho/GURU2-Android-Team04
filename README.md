@@ -19,16 +19,14 @@
 
 <table>
   <tr>
-    <td bgcolor="#FFF3CD">
+    <td>
       <b>⚠️ 주의 사항 (필수 설정)</b><br><br>
-
-      이 프로젝트는 <b>Google Gemini API</b>를 사용합니다.<br>
-      앱 실행 전 반드시 <code>local.properties</code>에 <b>GEMINI_API_KEY</b>를 추가해야 합니다.<br><br>
-
+      이 프로젝트는 <b>Google Gemini API</b>를 사용합니다.
+      앱 실행 전 반드시 <code>local.properties</code>에 <b>GEMINI_API_KEY</b>를 추가해야 합니다.
+      ---
       <b>설정 방법</b><br>
       프로젝트 루트 폴더의 <code>local.properties</code>에 아래 내용을 추가하세요
       (서울여대 eclass GURU2 프로젝트 과제 제출란에 키값이 적혀 있습니다. 참고 부탁드립니다.):<br><br>
-
       <pre><code>GEMINI_API_KEY=내 키값</code></pre>
     </td>
   </tr>
@@ -38,8 +36,11 @@
       <b>로그인 가능한 회원정보</b><br><br>
       아이디 : test123@example.com<br>
       비밀번호 : test123456
+    </td>
   </tr>
 </table>
+
+
 
 ---
 
